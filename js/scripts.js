@@ -4,12 +4,15 @@ const burgerButton = document.querySelector(".menu");
 const mobileMenu = document.querySelector(".mobile-menu");
 
 const cartShoppingIcon = document.querySelector(".navbar-shopping-cart");
-const productDetail = document.querySelector(".product-detail");
+const cartShoppingDetail = document.getElementById("id-card-detail");
 
 const main = document.querySelector("main");
 
 const products = [];
-const cardsContainer = document.querySelector(".cards-container")
+const cardsContainer = document.querySelector(".cards-container");
+
+const productDetailClose = document.querySelector(".product-detail-close");
+const productDetail = document.getElementById("id-product-detail");
 
 products.push({
     name:"bike",
@@ -31,27 +34,41 @@ burgerButton.addEventListener("click",toggleMobileMenu);
 cartShoppingIcon.addEventListener("click",toggleProductDetail);
 main.addEventListener("click",mainClick);
 
+productDetailClose.addEventListener("click",closeProductDetail);
+
 /*Funtions */
 function toggleDesktopMenu(event) {
     desktopMenu.classList.toggle("inactive");
-    addInactive([productDetail]);
+    addInactive([cartShoppingDetail,productDetail]);
 }
 function toggleMobileMenu(event){
     mobileMenu.classList.toggle("inactive");
-    productDetail.classList.add("inactive");
+    addInactive([cartShoppingDetail,productDetail]);
 }
 function toggleProductDetail(event){
-    productDetail.classList.toggle("inactive");
-    addInactive([mobileMenu,desktopMenu]);
+    cartShoppingDetail.classList.toggle("inactive");
+    addInactive([mobileMenu,desktopMenu,productDetail]);
 }
 function mainClick(event){
-    addInactive([desktopMenu,mobileMenu,productDetail]);
+    addInactive([desktopMenu,mobileMenu,cartShoppingDetail]);
+}
+function closeProductDetail(event){
+    addInactive([productDetail]);
+}
+function openProductDetail(event){
+    addActive([productDetail]);
+    addInactive([desktopMenu,mobileMenu,cartShoppingDetail]);
 }
 
 /*funcion extra */
 function addInactive(elements){
     elements.forEach(element => {
         element.classList.add("inactive");
+    });
+}
+function addActive(elements){
+    elements.forEach(element => {
+        element.classList.remove("inactive");
     });
 }
 /*main*/
@@ -61,6 +78,7 @@ products.forEach(product => {
 
     const productImg = document.createElement('img');
     productImg.src = product.image;
+    productImg.addEventListener("click",openProductDetail);
 
     const productInfo= document.createElement('div');
     productInfo.classList.add("product-info");
@@ -74,6 +92,7 @@ products.forEach(product => {
     productName.innerText = product.name;
 
     const figureProduct = document.createElement('figure');
+    figureProduct.addEventListener("click",openProductDetail);
 
     const iconProduct = document.createElement('img');
     iconProduct.src = "icons/bt_add_to_cart.svg";
@@ -91,3 +110,4 @@ products.forEach(product => {
 
 });
 console.log("puto")
+/*Funtions */
