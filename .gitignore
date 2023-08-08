@@ -1,4 +1,4 @@
 #Ignorar imagenes
-*.svg
-*.png
-*.jpg
+# *.svg
+# *.png
+# *.jpg
